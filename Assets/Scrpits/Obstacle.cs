@@ -4,16 +4,25 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    private float speed = 3;
+    private float speed = 15;
+    private PlayerController3 playerControllerScript;
+    private float leftBound = -15;
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController3>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.left * Time.deltaTime * speed);
+        if (playerControllerScript.gameOver == false)
+        {
+            transform.Translate(Vector3.left * Time.deltaTime * speed);
+        }
+        if(transform.position.x < leftBound && gameObject.CompareTag("Obstacle"))
+        {
+            Destroy(gameObject);
+        }
     }
 }
